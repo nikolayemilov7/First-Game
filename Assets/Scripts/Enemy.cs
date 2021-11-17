@@ -9,12 +9,15 @@ public class Enemy : MonoBehaviour
     private Animator _anim;
     [SerializeField]
     private Transform Player;
+    [SerializeField]
+    private HealthBar _healthBar;
 
     private int _maxHealth = 100;
     private int _currentHealth;
 
     private bool _isTrigger = false;
     private bool _attackZone = false;
+
 
 
 
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour
             Debug.LogError("NavMeshAgent is NULL!");
         }
         _currentHealth = _maxHealth;
+        _healthBar.SetMaxHealth(_maxHealth);
     }
     void Update()
     {
@@ -47,7 +51,7 @@ public class Enemy : MonoBehaviour
 
     private void MovementAnim()
     {
-        if (_navMeshAgent.remainingDistance > 0.1f)
+        if (_navMeshAgent.remainingDistance > 0.5f)
         {
             _anim.SetBool("isMoving", true);
         }
@@ -84,6 +88,7 @@ public class Enemy : MonoBehaviour
         _isTrigger = true;
         if (other.CompareTag("Player"))
         {
+            _anim.SetBool("isMoving", false);
             Player player = GameObject.Find("Player").GetComponent<Player>();
             if (player != null)
             {
@@ -105,9 +110,11 @@ public class Enemy : MonoBehaviour
     }
     public void Damage(int damage)
     {
+        _healthBar.SetHealth(_currentHealth);
         if (_currentHealth > 0)
         {
             _currentHealth -= damage;
+            _healthBar.SetHealth(_currentHealth);
         }
         else
         {

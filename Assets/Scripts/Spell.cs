@@ -38,7 +38,7 @@ public class Spell : MonoBehaviour
                     else if (hit.transform.tag == "Enemy")
                     {
                         _instantiatedObj = Instantiate(_firePrefab, hit.point, Quaternion.Euler(270f, 0, 0));
-                        GameObject.Find("Enemy").GetComponent<Enemy>().Damage(100);
+                        GameObject.Find("Enemy").GetComponent<Enemy>().Damage(50);
                         _nextFire = Time.time + _cooldown;
                         Destroy(_instantiatedObj, 3);
                     }

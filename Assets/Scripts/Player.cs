@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
 
     private void MovementAnim()
     {
-        if (_navMeshAgent.remainingDistance > 0.1f)
+        if (_navMeshAgent.remainingDistance > 0.5f)
         {
             _anim.SetBool("isMoving", true);
         }
